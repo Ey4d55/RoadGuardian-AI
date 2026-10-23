@@ -1,0 +1,7 @@
+{
+  "description": "Example only. Reselect all four ordered road corners for YOUR fixed camera view before enabling tabletop mode. Not validated metric calibration.",
+  "length_m": 0.22,
+  "width_m": 0.14,
+  "polygon": [[0.6448, 0.3167], [0.6854, 0.4556], [0.3406, 0.6111], [0.3125, 0.4185]],
+  "crop": [0.3021, 0.0, 0.6979, 1.0]
+}

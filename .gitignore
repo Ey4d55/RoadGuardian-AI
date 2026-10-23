@@ -1,0 +1,46 @@
+__pycache__/
+.test-deps/
+.edge-deps/
+.venv/
+edge_status.json
+edge_status.tmp
+*.pt
+*.zip
+
+# Local captures, attachments, experimental training data and model artifacts.
+.codex-remote-attachments/
+.codex/
+.agents/
+datasets/
+runs/
+*.jpg
+*.jpeg
+*.png
+!docs/images/*.png
+vehicle_photo_check.json
+road_region.json
+site.json
+*.mp4
+*.mov
+*.avi
+*.mkv
+
+# Local-only dependencies, scratch folders, logs and credentials.
+tmp*/
+*.log
+*-results.txt
+*-test.txt
+*-tests.txt
+camera-test-debug.txt
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+*.pem
+*.key
+.DS_Store
+Thumbs.db
+
+# Generated release artifacts. Source of truth is the code and docs.
+COMPLETE_CODE.md
+dist/

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<style>
+@font-face{font-family:Arabic;src:url(data:font/woff2;base64,__FONT_DATA__) format('woff2')}
+*{box-sizing:border-box}body{margin:0;background:transparent;color:#18364a;font:14px Arabic,Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #f6bc61;outline-offset:3px}
+.screen{background:#0e2231;border:1px solid #254254;border-radius:20px;overflow:hidden;color:#ebf4fa}.head{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}.eyebrow{font:10px Arial;letter-spacing:2px;color:#78d9cd}.head h2{font-size:21px;margin:5px 0}.head p{margin:0;color:#9ab5c7;font-size:12px}.pill{font-size:11px;border:1px solid #37576b;border-radius:30px;padding:7px 12px;color:#b9d3e4;white-space:nowrap}
+.layout{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(245px,1fr);direction:ltr;gap:0}.road{background:#102839;position:relative;min-width:0;border-top:1px solid #254254;border-bottom:1px solid #254254}.road svg{width:100%;height:100%;min-height:300px;display:block}.decision{direction:rtl;background:#142d3d;padding:22px;border-top:1px solid #254254;border-bottom:1px solid #254254}.decision small{color:#a5bfd0}.decision h3{font-size:20px;min-height:58px;margin:14px 0 8px}.decision p{line-height:1.9;color:#bdd1de;font-size:13px;min-height:72px}.status{display:flex;align-items:center;gap:8px;color:#80dfcf;font-size:12px}.status i{height:8px;width:8px;border-radius:50%;background:currentColor}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:18px}.stat{border:1px solid #345060;border-radius:10px;padding:10px}.stat span{font-size:10px;color:#9fbacc;display:block}.stat b{direction:ltr;unicode-bidi:isolate;font:19px Arial;display:block;margin-top:8px;color:#f2f8fc}.leds{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:20px}.led{text-align:center;background:#0e2231;border:1px solid #345060;border-radius:10px;padding:9px 2px;font-size:10px;color:#9ab5c7}.led i{display:block;width:12px;height:12px;border-radius:50%;margin:0 auto 7px;background:#344857}.led.on i{background:var(--color);box-shadow:0 0 16px var(--color)}.led.on{color:white;border-color:var(--color)}.wiring{font-size:11px;color:#b8cddd;line-height:1.9;margin-top:14px}.controls{display:flex;gap:12px;align-items:center;padding:17px 24px;direction:ltr;flex-wrap:wrap}.controls button{background:#1b495a;color:#d9f6f2;border:1px solid #3b6b78;border-radius:10px;padding:9px 16px}.controls button.primary{background:#6bd4c5;color:#102a36;border-color:#6bd4c5}.controls input{accent-color:#6bd4c5;flex:1;min-width:100px}.time{font:12px Arial;color:#abc3d3;min-width:75px}.note{font-size:11px;color:#7891a3;line-height:1.9;margin:12px 4px 24px}.eco{border:1px solid #d7e4e9;border-radius:18px;background:white;padding:22px 24px;margin-top:20px}.eco h2{margin:5px 0;font-size:22px}.eco .eyebrow{color:#087f8a}.eco-head{display:flex;justify-content:space-between;align-items:center;gap:14px}.eco-head p{font-size:12px;color:#637f90}.eco-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:center}.eco svg{width:100%;max-height:300px}.eco-values{display:grid;grid-template-columns:1fr 1fr;gap:12px}.eco-card{background:#f1f7f8;border:1px solid #dae8eb;border-radius:12px;padding:16px}.eco-card span{font-size:11px;color:#59788a}.eco-card b{direction:ltr;unicode-bidi:isolate;display:block;font:25px Arial;color:#0a7982;margin:12px 0}.eco-card small{font-size:10px;color:#59788a}.comparison{grid-column:1/-1;font-size:12px;line-height:2;padding:10px;background:#f6f8fb;border-radius:10px}.legend{font-size:11px;color:#547182;line-height:1.9}.legend strong{color:#087f8a}.safety{font-size:12px;color:#a53751;background:#fff0f3;padding:10px 14px;border-radius:9px;margin-top:14px}.svgtext{font-family:Arabic,Arial,sans-serif}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.decision h3,.decision p{min-height:0}.eco-grid{grid-template-columns:1fr}.head,.eco{padding:16px}.head h2{font-size:18px}.head .pill{display:none}.road svg{min-height:220px}.controls{padding:14px}.eco-grid svg{max-height:260px}}
+</style></head><body>
+<section class="screen" aria-label="محاكاة حركة الطريق والإشارة">
+<div class="head"><div><span class="eyebrow">ROADGUARDIAN / MOTION SIMULATION</span><h2>من اقتراب المركبة إلى تفعيل التنبيه</h2><p id="phase">المركبة تقترب · النظام يراقب</p></div><span class="pill">محاكاة مرئية · لا تتحكم بالعتاد</span></div>
+<div class="controls"><button id="play" class="primary" aria-label="تشغيل المحاكاة">تشغيل المحاكاة ▶</button><button id="reset" aria-label="إعادة المحاكاة">إعادة ↺</button><input id="seek" type="range" min="0" max="18" step="0.1" value="0" aria-label="تقدم المحاكاة"><span class="time" id="time">0.0 / 18 s</span></div>
+<div class="layout"><div class="road"><svg viewBox="0 0 1040 470" role="img" aria-label="مركبة متحركة ومعبر وإشارة تتغير حسب قرار المحرك">
+<defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#234252" stroke-width=".6"/></pattern><filter id="glow"><feGaussianBlur stdDeviation="5"/></filter></defs>
+<rect width="1040" height="470" fill="url(#grid)"/>
+<g fill="#183544" stroke="#2e4b59"><rect x="40" y="30" width="165" height="106" rx="10"/><rect x="238" y="30" width="150" height="106" rx="10"/><rect x="580" y="30" width="180" height="106" rx="10"/><rect x="800" y="30" width="190" height="106" rx="10"/><rect x="35" y="350" width="240" height="80" rx="10"/><rect x="590" y="350" width="390" height="80" rx="10"/></g>
+<path d="M0 159H1040V327H0Z" fill="#2b4354"/><path d="M0 160H1040M0 327H1040" stroke="#7892a4" stroke-width="4"/><path d="M0 243H1040" stroke="#dfc37b" stroke-width="2"/><path d="M0 203H1040M0 284H1040" stroke="#688396" stroke-width="2" stroke-dasharray="24 25"/>
+<g fill="#b7c8d5" opacity=".65"><path d="M98 192h45l-12-9m12 9l-12 9" fill="none" stroke="#b7c8d5" stroke-width="3"/><path d="M893 284h-45l12-9m-12 9l12 9" fill="none" stroke="#b7c8d5" stroke-width="3"/></g>
+<g id="crosswalk" fill="#b7c9d3"><rect x="393" y="168" width="50" height="12"/><rect x="393" y="191" width="50" height="12"/><rect x="393" y="214" width="50" height="12"/><rect x="393" y="237" width="50" height="12"/><rect x="393" y="260" width="50" height="12"/><rect x="393" y="283" width="50" height="12"/><rect x="393" y="306" width="50" height="12"/></g>
+<text x="417" y="148" text-anchor="middle" fill="#b5cddb" font-size="16" class="svgtext">معبر المشاة</text><path id="stopLine" d="M510 250V322" stroke="#ff7b8a" stroke-width="5" opacity=".3"/>
+<g id="signal" transform="translate(478 348)"><rect x="-7" y="14" width="5" height="60" fill="#839eab"/><rect x="-25" y="-22" width="42" height="62" rx="10" fill="#091924" stroke="#597687"/><circle id="roadRed" cx="-4" cy="-6" r="10" fill="#354954"/><circle id="roadGreen" cx="-4" cy="23" r="10" fill="#42d69b"/><text x="55" y="69" text-anchor="middle" fill="#c1d9e5" font-size="19" class="svgtext">إشارة المركبات</text></g>
+<g id="pedStatus" opacity="0"><rect id="pedBadge" x="90" y="88" width="280" height="49" rx="12" fill="#213d4b" stroke="#f5c16c"/><text id="pedLabel" x="230" y="119" text-anchor="middle" fill="#ffdb98" font-size="21" class="svgtext">مشاة يتجهون إلى المعبر</text></g>
+<g id="pedestrian" transform="translate(417 390) scale(1.3)" opacity="0">
+<ellipse cx="0" cy="47" rx="29" ry="8" fill="#071923" opacity=".7"/>
+<rect x="-37" y="-60" width="74" height="118" rx="20" fill="#102c3c" fill-opacity=".7" stroke="#ffe0a2" stroke-width="2"/>
+<circle cx="0" cy="-39" r="13" fill="#ffe0a2" stroke="#152e3d" stroke-width="2"/>
+<path d="M-10-18Q0-24 10-18L13 12H-13Z" fill="#f4b74f" stroke="#ffe0a2" stroke-width="2"/>
+<path id="pedArmLeft" d="M-10-13L-24 8" stroke="#ffe0a2" stroke-width="7" stroke-linecap="round"/>
+<path id="pedArmRight" d="M10-13L24 8" stroke="#ffe0a2" stroke-width="7" stroke-linecap="round"/>
+<path id="pedLegLeft" d="M-7 12L-13 44" stroke="#f5c16c" stroke-width="8" stroke-linecap="round"/>
+<path id="pedLegRight" d="M7 12L13 44" stroke="#f5c16c" stroke-width="8" stroke-linecap="round"/>
+</g>
+<g id="bridge" opacity="0"><rect x="444" y="146" width="28" height="195" rx="6" fill="#6c8fa4"/><path d="M425 150h65M425 334h65" stroke="#98b7c9" stroke-width="12"/><rect x="415" y="94" width="88" height="40" rx="7" fill="#173f52" stroke="#7c9eaf"/><text x="459" y="120" text-anchor="middle" fill="#d7eaf5" font-size="23">4.5 m</text></g>
+<g id="trafficQueue" aria-hidden="true"></g><path id="upperStopLine" d="M365 166V236" stroke="#ff7b8a" stroke-width="5" opacity="0"/>
+<g id="queueBadge" opacity="0"><rect x="730" y="97" width="270" height="40" rx="10" fill="#403d28" stroke="#d6b96b"/><text x="865" y="123" text-anchor="middle" fill="#f7d98e" font-size="19" class="svgtext">ازدحام · 6 مركبات في اتجاهين</text></g>
+<g id="car" transform="translate(930 281)"><rect x="-53" y="-23" width="108" height="46" rx="12" fill="#5fd0c2" stroke="#c5fff4" stroke-width="2"/><rect x="-40" y="-17" width="18" height="34" rx="4" fill="#183e50"/><path d="M-18-16H25V16H-18" fill="#338c91"/><rect x="37" y="-17" width="9" height="34" rx="2" fill="#9ae4dd"/><rect x="-53" y="-16" width="4" height="9" fill="#fff0af"/><rect x="-53" y="8" width="4" height="9" fill="#fff0af"/><g id="ambulanceMark" opacity="0" fill="#fff"><path d="M-3-10H7V10H-3Z"/><path d="M-8-5H12V5H-8Z"/></g><rect id="truckBox" x="-8" y="-30" width="62" height="60" rx="4" fill="#96b4cb" stroke="#daedff" opacity="0"/><text id="truckHeight" x="0" y="-45" text-anchor="middle" fill="#ffc3cd" font-size="15" opacity="0">5.0 m</text><rect id="carDetect" x="-65" y="-39" width="130" height="78" rx="9" fill="none" stroke="#6fe8d3" stroke-width="2" stroke-dasharray="7 4"/></g>
+<path id="link" d="M510 280Q540 385 490 380" fill="none" stroke="#ff8c9d" stroke-width="2" stroke-dasharray="7 7" opacity="0"/><text x="130" y="449" text-anchor="middle" fill="#829dac" font-size="13" class="svgtext">رسم توضيحي · ليس بمقياس هندسي</text>
+</svg></div><aside class="decision">
+<small>قرار المحرك في لحظة المحاكاة</small><div class="status" id="status"><i></i><span id="statusLabel">مراقبة</span></div><h3 id="decisionTitle">المركبة تقترب</h3><p id="decisionText">راقب تغير الإشارة عندما تظهر حالة الخطر.</p>
+<div class="stats"><div class="stat"><span>المسافة للمعبر · افتراضية</span><b id="distance">—</b></div><div class="stat"><span>سرعة المركبة · افتراضية</span><b id="speed">—</b></div></div>
+<div class="leds"><div class="led" id="ledG" style="--color:#42d69b"><i></i>سير المركبات</div><div class="led" id="ledR" style="--color:#ff667e"><i></i>توقف</div><div class="led" id="ledB" style="--color:#f4c56e"><i></i>جسر</div><div class="led" id="ledE" style="--color:#6ee7b8"><i></i>أولوية</div></div>
+<div class="wiring" id="wiring">خرج المجسم: G → GPIO33</div><div class="wiring">تمثيل الإشارة هنا مرئي؛ توصيل ESP32 الفعلي يُختبر في الرؤية الحية.</div>
+</aside></div>
+
+</section>
+<p class="note">الأخضر لسير المركبات، والأحمر لإيقافها. عبور المشاة هنا مبرمج بعد توقف المركبة داخل السيناريو؛ لا يعتمد على تأكيد عتاد حقيقي. المحاكاة لا ترسل أوامر إلى ESP32.</p>
+<section class="eco"><div class="eco-head"><div><span class="eyebrow">ECOTWIN / DECISION IMPACT</span><h2>أثر القرار · متزامن مع الحركة</h2><p>يتراكم الأثر خلال توقف المركبة فقط، ويتوقف مع إيقاف المحاكاة.</p></div><span class="pill" style="color:#527283;border-color:#c8dce3" id="ecoClock">0.0 s · زمن المشهد</span></div>
+<div class="eco-grid"><div><svg viewBox="0 0 380 330" aria-label="رادار أثر القرار الافتراضي" role="img"><g transform="translate(190 164)">
+<circle r="110" fill="#f4f8f9" stroke="#d5e3e8"/><circle r="73" fill="none" stroke="#d5e3e8"/><circle r="36" fill="none" stroke="#d5e3e8"/>
+<g stroke="#d2e0e5"><path d="M0 0V-110M0 0L104.6-34M0 0L64.6 89M0 0L-64.6 89M0 0L-104.6-34"/></g>
+<polygon id="ecoBase" fill="none" stroke="#9aafbb" stroke-width="2" stroke-dasharray="5 5"/><polygon id="ecoShape" fill="#42bfb438" stroke="#07878d" stroke-width="3"/>
+<circle r="20" fill="#113c4f"/><text y="5" fill="white" text-anchor="middle" font-size="12" class="svgtext">أثر</text>
+</g><g font-size="12" fill="#426579" text-anchor="middle" class="svgtext"><text x="190" y="26">مؤشر الخطر</text><text x="325" y="125">زمن الانتظار</text><text x="283" y="297">الوقود</text><text x="97" y="297">CO₂</text><text x="53" y="125">ارتفاع الشاحنة</text></g></svg><div class="legend"><strong>الخط الملون:</strong> القرار وأثر التوقف في اللحظة الحالية · <span>المتقطع: خط الأساس المفترض.</span><br>الوقود وCO₂ مرتبطان حسابيًا؛ ليست هذه حدودًا كوكبية أو EcoScore.</div></div>
+<div class="eco-values"><div class="eco-card"><span>إجمالي CO₂ للمركبات في المشهد</span><b id="co2">—</b><small>غرام · تقدير المحاكاة</small></div><div class="eco-card"><span>إجمالي الوقود أثناء التوقف</span><b id="fuel">—</b><small>لتر · تقدير المحاكاة</small></div><div class="comparison" id="ecoAccounting"></div><div class="comparison" id="ecoComparison"></div><div class="comparison" id="ecoAssumptions"></div></div></div>
+<div class="safety" id="ecoSafety">السلامة مستقلة عن المقارنة البيئية.</div>
+</section>
+<script id="simulationData" type="application/json">__SIM_DATA__</script>
+<script>
+const data=JSON.parse(document.getElementById('simulationData').textContent);
+const $=id=>document.getElementById(id);let elapsed=0,playing=false,last=null,raf=null;
+const queueCars=[];
+if(data.scenario==='CONGESTION'){
+for(let i=1;i<data.frames[0].vehicles.length;i++){
+ const clone=$('car').cloneNode(true),outline=clone.querySelector('#carDetect');
+ clone.removeAttribute('id');clone.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
+ clone.querySelector('rect').setAttribute('fill',['#78b8df','#f0bf71','#9bb4cc','#85c3b2','#bcabdc'][i-1]);
+ $('trafficQueue').appendChild(clone);queueCars.push({node:clone,outline,index:i});
+}}
+const fmt=(n,d=1)=>Number(n).toFixed(d);
+const titles={G:'المركبة تحت المراقبة',R:'تنبيه محلي لحماية المشاة',B:'تحذير: الشاحنة أعلى من الجسر',E:'أولوية مرور تجريبية للإسعاف'};
+const descriptions={G:'لم تُفعَّل عتبة التنبيه في هذه اللحظة من المشهد.',R:'رُصد مشاة عند الرصيف. تضيء الإشارة الحمراء وتبطئ المركبة ثم تتوقف وفق استجابة سائق مفترضة.',B:'الارتفاع الافتراضي 5 أمتار يتجاوز حد 4.5 متر. يظهر تحذير الجسر مع الأحمر، وتتوقف الشاحنة في المحاكاة.',E:'الخوارزمية تمنح حالة الإسعاف المفترضة أولوية تجريبية. هذا السيناريو لا يعني تعرف الكاميرا على الإسعاف.'};
+const ports={G:'G → GPIO33',R:'R → GPIO25',B:'B → GPIO26 + GPIO25',E:'E → GPIO27'};
+function radar(values){return values.map((v,i)=>{const a=(-90+i*72)*Math.PI/180,r=Math.min(1.25,Math.max(0,v))*88;return `${Math.cos(a)*r},${Math.sin(a)*r}`}).join(' ')}
+const before=data.eco_before,assumptions=data.assumptions;
+$('ecoAssumptions').textContent=assumptions.waiting_source==='per_vehicle'?`التقدير يجمع زمن توقف المركبات الـ${assumptions.vehicles} المرسومة كلًّا على حدة؛ ${assumptions.idle_lph} لتر/ساعة و${assumptions.co2_kg_per_l} كغ CO₂/لتر. لا يشمل القيادة، وليس قياسًا حقيقيًا.`:`تقدير لـ ${assumptions.vehicles} مركبة افتراضية، نفترض أن لكل منها توقف المركبة الظاهرة نفسه؛ ${assumptions.idle_lph} لتر/ساعة و${assumptions.co2_kg_per_l} كغ CO₂/لتر. لا يشمل التسارع أو القيادة، وليس قياسًا حقيقيًا.`;
+$('ecoBase').setAttribute('points',radar([0,before.wait_s/60,before.fuel_l/.2,before.co2_kg/.4696,0]));
+function render(){const index=Math.min(data.frames.length-1,Math.floor(elapsed/data.dt)),frame=data.frames[index],next=data.frames[Math.min(index+1,data.frames.length-1)],mix=Math.max(0,Math.min(1,(elapsed-frame.t)/data.dt));
+const blend=(a,b)=>a+(b-a)*mix,command=frame.command,alert=command==='R'||command==='B';
+$('car').setAttribute('transform',`translate(${blend(frame.x,next.x)} 281)`);
+for(const car of queueCars){const vehicle=frame.vehicles[car.index],following=next.vehicles[car.index];car.node.setAttribute('transform',`translate(${blend(vehicle.x,following.x)} ${vehicle.y}) rotate(${vehicle.direction===1?180:0}) scale(.85)`);car.outline.setAttribute('stroke',alert?'#ff9b91':'#8daec4')}
+$('queueBadge').setAttribute('opacity',queueCars.length?1:0);$('upperStopLine').setAttribute('opacity',queueCars.length?(alert?1:.3):0);
+const pedOpacity=blend(frame.pedestrian_opacity,next.pedestrian_opacity),pedY=blend(frame.pedestrian_y,next.pedestrian_y);
+$('pedestrian').setAttribute('opacity',pedOpacity);$('pedStatus').setAttribute('opacity',pedOpacity);
+$('pedestrian').setAttribute('transform',`translate(417 ${pedY}) scale(1.3)`);
+const walking=frame.pedestrian_phase==='approaching'||frame.pedestrian_phase==='crossing',walkStart=frame.pedestrian_phase==='crossing'?6.4:0,walkEnd=frame.pedestrian_phase==='crossing'?11.6:3;
+const gaitEase=walking?Math.max(0,Math.min(1,(elapsed-walkStart)/.3,(walkEnd-elapsed)/.3)):0,stride=Math.sin(elapsed*8)*10*gaitEase;
+$('pedLegLeft').setAttribute('d',`M-7 12L${-13+stride} 44`);$('pedLegRight').setAttribute('d',`M7 12L${13-stride} 44`);
+$('pedArmLeft').setAttribute('d',`M-10-13L${-24-stride*.6} 8`);$('pedArmRight').setAttribute('d',`M10-13L${24+stride*.6} 8`);
+const pedLabels={approaching:'مشاة يتجهون إلى المعبر',waiting:'مشاة ينتظرون توقف المركبة',crossing:'عبور بعد توقف محاكى',cleared:'المشاة وصلوا للرصيف الآخر',absent:''};
+$('pedLabel').textContent=pedLabels[frame.pedestrian_phase];$('pedBadge').setAttribute('stroke',frame.crossing_confirmed?'#42d69b':'#f5c16c');$('pedLabel').setAttribute('fill',frame.crossing_confirmed?'#71efbc':'#ffdb98');
+$('bridge').setAttribute('opacity',data.scenario==='TRUCK_OVERHEIGHT'?1:0);$('crosswalk').setAttribute('opacity',data.scenario==='TRUCK_OVERHEIGHT'?.2:1);
+$('truckBox').setAttribute('opacity',data.scenario==='TRUCK_OVERHEIGHT'?1:0);$('truckHeight').setAttribute('opacity',data.scenario==='TRUCK_OVERHEIGHT'?1:0);$('ambulanceMark').setAttribute('opacity',data.scenario==='AMBULANCE'?1:0);
+$('roadRed').setAttribute('fill',alert?'#ff667e':'#354954');$('roadGreen').setAttribute('fill',alert?'#354954':'#42d69b');$('stopLine').setAttribute('opacity',alert?1:.3);$('link').setAttribute('opacity',alert?1:0);$('carDetect').setAttribute('stroke',alert?'#ff7d96':'#6fe8d3');
+$('phase').textContent=frame.phase;$('decisionTitle').textContent=frame.crossing_confirmed?'عبور المشاة في السيناريو':titles[command];$('decisionText').textContent=frame.crossing_confirmed?(queueCars.length?'توقفت مركبات الاتجاهين، ثم بدأ عبور مبرمج. تبقى الإشارة حمراء حتى يكتمل العبور، ثم ينطلق الطابور تدريجيًا.':'توقفت المركبة داخل المشهد، ثم بدأ عبور مبرمج. تبقى إشارة المركبات حمراء حتى اكتمال العبور.'):descriptions[command];$('statusLabel').textContent=alert?'توقف المركبات':'سير المركبات';$('status').style.color=alert?'#ff8d9e':'#80dfcf';
+$('distance').textContent=fmt(frame.event.distance_m)+' m';$('speed').textContent=fmt(frame.speed)+' km/h';$('wiring').textContent='مسار الإشارة في المجسم: '+ports[command];
+for(const key of ['G','R','B','E'])$('led'+key).classList.toggle('on',key===command||(command==='B'&&key==='R'));$('ledB').style.opacity=command==='B'?(Math.floor(elapsed*4)%2?1:.45):1;
+$('seek').value=elapsed;$('time').textContent=fmt(elapsed)+' / 18 s';
+const current={wait_s:blend(frame.eco_current.wait_s,next.eco_current.wait_s),fuel_l:blend(frame.eco_current.fuel_l,next.eco_current.fuel_l),co2_kg:blend(frame.eco_current.co2_kg,next.eco_current.co2_kg)};
+$('ecoAccounting').textContent=`عدد المركبات: ${assumptions.vehicles} · مجموع أزمنة التوقف: ${fmt(current.wait_s*assumptions.vehicles)} مركبة·ثانية · متوسط CO₂ لكل مركبة: ${fmt(current.co2_kg*1000/assumptions.vehicles,2)} غرام. عند نفس زمن التوقف، 6 مركبات تنتج 6 أضعاف مركبة واحدة.`;
+$('co2').textContent=fmt(current.co2_kg*1000);$('fuel').textContent=fmt(current.fuel_l,4);$('ecoClock').textContent=fmt(elapsed)+' s · زمن المشهد';
+$('ecoComparison').textContent=`${assumptions.waiting_source==='per_vehicle'?'متوسط التوقف المتراكم للمركبات المرسومة':'التوقف المتراكم لكل مركبة افتراضية'}: ${fmt(current.wait_s)} ثانية. مرجع موحّد: افتراض توقف كل مركبات المشهد طوال الـ18 ثانية: ${before.wait_s} ثانية لكل مركبة، أي ${fmt(before.co2_kg*1000)} غرام CO₂. هذه مقارنة توضيحية، وليست نسبة تحسين مقاسة.`;
+$('ecoShape').setAttribute('points',radar([blend(frame.outcome.risk,next.outcome.risk)/100,current.wait_s/60,current.fuel_l/.2,current.co2_kg/.4696,frame.outcome.truck_height_m/4.5]));
+$('ecoSafety').textContent=alert?'المركبة متوقفة أو تتوقف لحماية المشاة/الجسر. يتراكم أثر الانتظار، ويبقى قرار السلامة صاحب الأولوية.':'عند حركة المركبة يتوقف تراكم انبعاثات التوقف؛ هذا النموذج لا يحسب انبعاثات القيادة. الإعادة تصفّر زمن المشهد وأثره معًا.';
+}
+function label(){ $('play').textContent=playing?'إيقاف مؤقت ❚❚':'تشغيل المحاكاة ▶';$('play').setAttribute('aria-label',playing?'إيقاف المحاكاة':'تشغيل المحاكاة') }
+function loop(timestamp){if(!playing)return;if(last!==null)elapsed=Math.min(data.duration,elapsed+(timestamp-last)/1000);last=timestamp;render();if(elapsed>=data.duration){playing=false;last=null;label();return}raf=requestAnimationFrame(loop)}
+$('play').onclick=()=>{playing=!playing;if(playing){if(elapsed>=data.duration)elapsed=0;last=null;raf=requestAnimationFrame(loop)}else{cancelAnimationFrame(raf);last=null}label()};
+$('reset').onclick=()=>{playing=false;cancelAnimationFrame(raf);elapsed=0;last=null;label();render()};$('seek').oninput=e=>{elapsed=Number(e.target.value);last=null;render()};
+document.addEventListener('visibilitychange',()=>{if(document.hidden){playing=false;cancelAnimationFrame(raf);last=null;label()}});render();
+</script></body></html>

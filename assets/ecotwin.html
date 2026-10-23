@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+@font-face{font-family:Plex;src:url(data:font/woff2;base64,__FONT_DATA__) format('woff2');font-weight:400}
+*{box-sizing:border-box}body{margin:0;background:#101c29;color:#ecf3f7;font:15px/1.7 Plex,Arial,sans-serif;border-radius:20px}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid #7cded5;outline-offset:4px}button:disabled{cursor:default;opacity:.4}
+.wrap{padding:24px 28px}.head{display:flex;justify-content:space-between;align-items:center;gap:16px}h2{font-size:24px;margin:0}.eyebrow{color:#83cfc8;font:11px Arial;letter-spacing:2px;direction:ltr;text-align:right}p{margin:6px 0;color:#b3c3d0}.tag{font-size:12px;background:#253947;color:#b6dfd8;border:1px solid #3b5961;padding:4px 12px;border-radius:30px;white-space:nowrap}.safety{margin:18px 0 20px;padding:11px 15px;border:1px solid #38695e;background:#163c34;border-radius:10px;font-size:14px}.safety.alert{border-color:#9c4255;background:#3f2330;color:#ffd3dd}.safety bdi{font:12px monospace}
+.layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(245px,.85fr);gap:32px;align-items:start}.chart-panel{min-width:0}.status-top{display:flex;justify-content:space-between;align-items:center;gap:10px}.status-top strong{font-size:17px}.status-top span{font-size:12px;color:#b3c3d0}.scale-wrap{direction:ltr;position:relative;padding-top:26px;margin:4px 10px 26px}.scale{height:13px;border-radius:5px;background:linear-gradient(90deg,#4bbd79 0%,#91be65 30%,#e6c352 47%,#ef914b 60%,#cb4556 77%,#7c3a93 100%)}.marker{position:absolute;top:15px;left:0;transform:translateX(-50%);height:30px;border-left:2px solid white;transition:left .12s linear}.marker:before{content:'';display:block;width:10px;height:10px;border-radius:50%;background:#57c3ef;border:2px solid white;position:absolute;top:12px;left:-6px}.scale-labels{display:flex;justify-content:space-between;font-size:11px;color:#bcc9d3;margin-top:7px}.scale-labels span:nth-child(2){color:#f4c67c}.tabs{display:flex;gap:6px;justify-content:end;margin:0 0 4px}.tabs button{background:transparent;color:#b3c3d0;border:1px solid #486071;padding:7px 13px;border-radius:8px;min-height:44px}.tabs button[aria-pressed=true]{background:#eaf2f1;color:#183b3c}.radial{width:100%;max-width:450px;display:block;margin:auto;overflow:visible}svg text{font-family:Plex,Arial,sans-serif}.legend{display:flex;gap:18px;justify-content:center;color:#c1cfd9;font-size:12px}.legend i{display:inline-block;width:15px;height:3px;margin-inline-end:6px;background:#76d4c1;vertical-align:middle}.legend .dash{background:transparent;border-top:2px dashed #f6f4de}.timeline{margin-top:17px;background:#172838;padding:12px 15px;border:1px solid #30485b;border-radius:12px}.time-top{display:flex;justify-content:space-between;font-size:13px}.time-top output{direction:ltr;unicode-bidi:isolate;font:17px Arial;color:#79dcce}.timeline-controls{display:flex;gap:12px;align-items:center;direction:ltr;margin-top:6px}.timeline-controls button{width:44px;height:44px;flex-shrink:0;border:1px solid #4d6c7b;background:#17495a;color:#d5f4f5;border-radius:50%;font-family:Arial;font-size:19px}.timeline-controls input{width:100%;accent-color:#69d8ca;min-width:0;cursor:pointer;height:40px}.timeline-note{font-size:11px;color:#a5b6c3;margin-top:6px}.summary{padding-top:8px}.summary h3{font-size:17px;margin:0 0 12px}.cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}.card{padding:15px 12px;background:#192b3b;border:1px solid #30485b;border-radius:13px}.card small{display:block;color:#b3c3d0;font-size:12px}.card strong{display:block;font:27px/1.8 Arial;color:#f1f6f8;direction:ltr;text-align:right}.card em{font-style:normal;font-size:11px;color:#bed0da}.comparison{margin-top:18px;padding-top:12px;border-top:1px solid #35495b}.comparison-row{display:flex;justify-content:space-between;gap:10px;padding:7px 0;font-size:13px}.comparison-row bdi{font-family:Arial;white-space:nowrap}.increase{color:#ffad98}.decrease{color:#78d9b8}.neutral{color:#ced9e2}.note{font-size:12px;line-height:1.9;color:#aebfcd}.method{margin-top:14px;background:#122330;border-radius:10px;padding:12px 14px}.method strong{font-size:13px}.table{width:100%;border-collapse:collapse;font-size:12px}.table th,.table td{padding:13px 7px;border-bottom:1px solid #3a5063;text-align:right}.table th{color:#a4c8cf}.table-view{min-height:350px;overflow-x:auto}.limits{font-size:11px;color:#aebfcd;margin-top:10px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@media(max-width:660px){.wrap{padding:20px 16px}.layout{grid-template-columns:1fr;gap:23px}.head{align-items:start}h2{font-size:20px}.tag{font-size:10px;padding:3px 8px}.summary{padding-top:0}.radial{max-width:380px}.safety{font-size:12px}.head p{font-size:12px}.table-view{min-height:320px}}
+@media(prefers-reduced-motion:reduce){.marker{transition:none}}
+</style></head><body>
+<main class="wrap">
+ <div class="head"><div><div class="eyebrow">ECOTWIN / IMPACT EXPLORER</div><h2>كل قرار له أثر</h2><p>السلامة أولًا. والأثر البيئي أمامك بوضوح.</p></div><span id="source" class="tag"></span></div>
+ <div id="safety" class="safety" role="status"></div>
+ <div class="layout"><section class="chart-panel" aria-label="المخطط الشعاعي للأثر">
+  <div class="status-top"><strong>حالة الطريق والأثر</strong><span id="statusText"></span></div>
+  <div class="scale-wrap"><div class="scale"></div><div class="marker" id="marker"></div><div class="scale-labels"><span>ضمن المرجع</span><span>المرجع 1×</span><span>تجاوز أكبر</span></div></div>
+  <div class="tabs"><button id="chartTab" aria-pressed="true">المخطط</button><button id="tableTab" aria-pressed="false">القيم</button></div>
+  <svg id="radial" class="radial" viewBox="-30 -20 540 490" role="img" aria-labelledby="chartTitle chartDesc"><title id="chartTitle">قطاعات الأثر التشغيلي</title><desc id="chartDesc">كلما اتسع القطاع زاد الضغط. الخط المتقطع للمقارنة الافتراضية. القيم المفقودة لا تُرسم.</desc>
+   <defs><radialGradient id="pressure" gradientUnits="userSpaceOnUse" cx="240" cy="220" r="174"><stop offset="0" stop-color="#459f72"/><stop offset=".36" stop-color="#65b872"/><stop offset=".46" stop-color="#d6ce58"/><stop offset=".62" stop-color="#eb9c46"/><stop offset=".8" stop-color="#c4485b"/><stop offset="1" stop-color="#773a8e"/></radialGradient></defs>
+   <circle cx="240" cy="220" r="174" fill="#e8edf0"/><g id="sectors"></g><g id="rings"></g><g id="references"></g><g id="labels"></g><circle cx="240" cy="220" r="23" fill="#133e47" stroke="#81cfcc"/><text x="240" y="225" text-anchor="middle" fill="#e5fffc" font-size="11">الأثر</text>
+  </svg>
+  <div id="tableView" class="table-view" hidden><table class="table"><thead><tr><th>المؤشر</th><th>الحالي</th><th>المرجع</th></tr></thead><tbody id="tableBody"></tbody></table></div>
+  <div class="legend"><span id="currentLegend"><i></i>قيم الحدث والافتراض الحالي</span><span id="baseLegend"><i class="dash"></i>خط الأساس المفترض</span></div>
+  <div class="timeline"><div class="time-top"><span id="timelineLabel">تقدم العرض التوضيحي</span><output id="timeValue">100%</output></div><div class="timeline-controls"><button id="play" aria-label="تشغيل الحركة">▶</button><input id="time" type="range" min="0" max="60" step="0.1" value="0" aria-label="تقدم العرض التوضيحي"><button id="reset" aria-label="إعادة الحركة">↺</button></div><div class="timeline-note" id="timelineNote">عرض متدرج مدته 12 ثانية؛ لا يمثل الزمن المروري. مؤشر السلامة ثابت للحدث المختار طوال الحركة.</div></div>
+ </section><section class="summary" aria-label="نتائج الأثر البيئي"><h3>تقدير الانتظار والانبعاثات</h3><p class="note">الأرقام عند 100% هي نتائج الافتراضات؛ المقارنة لنفس عدد المركبات.</p><div class="cards"><div class="card"><small>CO₂ المقدّر</small><strong id="co2">—</strong><em>غرام · من الوقود أثناء الانتظار</em></div><div class="card"><small>الوقود المقدّر</small><strong id="fuel">—</strong><em>لتر · أثناء الانتظار فقط</em></div></div>
+ <div class="comparison"><div class="comparison-row"><span>CO₂ في خط الأساس</span><bdi id="baseline">—</bdi></div><div class="comparison-row"><span id="deltaLabel">الفرق عن خط الأساس</span><bdi id="delta">—</bdi></div><div class="comparison-row"><span>متوسط انتظار المركبة</span><bdi id="waitValue">—</bdi></div><div class="comparison-row"><span>المركبات في الحساب</span><bdi id="vehicles">—</bdi></div></div>
+ <div class="method"><strong>كيف نقرأ الرسم؟</strong><p class="note">الحلقة الأولى = المرجع الخاص بكل مؤشر. عند تنبيه السلامة يعرض الشريط درجته أولًا؛ وإلا يعرض أكبر نسبة مرجعية. حدود البيئة مراجع للعرض وليست حدودًا صحية أو كوكبية.</p><p id="factorNote" class="note"></p></div>
+ <p class="limits">الوقود وCO₂ مترابطان حسابيًا، وليسا دليلين مستقلين. التقدير يشمل التوقف فقط؛ لا يشمل التسارع أو القيادة أو بقية الاتجاهات.</p>
+ <p id="overflow" class="note"></p>
+ </section></div>
+</main><script id="data" type="application/json">__ECO_DATA__</script><script>
+'use strict';
+const data=JSON.parse(document.getElementById('data').textContent);
+const $=id=>document.getElementById(id), ns='http://www.w3.org/2000/svg';
+const finite=v=>typeof v==='number'&&Number.isFinite(v);
+const fmt=(v,d=1)=>finite(v)?v.toFixed(d):'—';
+const available=Boolean(data.before&&data.after), reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let playing=false,t=60,last=null,raf=null;
+$('source').textContent=data.simulated?'محاكاة · افتراضات معلنة':'رؤية حية · الأثر غير متاح';
+$('safety').classList.toggle('alert',data.safety_locked);
+$('safety').textContent=(data.safety_locked?'تنبيه السلامة مستمر؛ لا يمكن للأثر البيئي إلغاؤه. ':'قرار السلامة مستقل عن هذه المقارنة. ')+data.action;
+$('factorNote').textContent=available?`افتراض الوقود: ${fmt(data.assumptions.idle_lph,2)} لتر/ساعة لكل مركبة. معامل CO₂: ${fmt(data.assumptions.co2_kg_per_l,3)} كغ/لتر. قابلان للتعديل أعلى اللوحة.`:'يلزم عدد المركبات وزمن انتظارها وعوامل انبعاث ملائمة. بيانات الرؤية الحالية لا توفرها؛ لا نستبدلها بأصفار.';
+if(!available){$('currentLegend').textContent='قيم حدث الرؤية';$('baseLegend').hidden=true;$('play').disabled=true;$('time').disabled=true;$('reset').disabled=true;$('timelineLabel').textContent='لقطة السلامة الحالية';$('timelineNote').textContent='لا يوجد سجل انتظار بيئي حي لتشغيله.';}
+const axes=[
+ {label:'خطر القرار',unit:'/ 100',ref:75,full:data.risk,base:null,temporal:false},
+ {label:'ارتفاع الشاحنة',unit:'m',ref:data.bridge_limit,full:data.truck_height_m,base:null,temporal:false},
+ {label:'زمن الانتظار',unit:'s / مركبة',ref:60,full:data.after?.wait_s,base:data.before?.wait_s,temporal:true},
+ {label:'استهلاك الوقود',unit:'L',ref:.2,full:data.after?.fuel_l,base:data.before?.fuel_l,temporal:true},
+ {label:'انبعاثات CO₂',unit:'g',ref:469.6,full:available?data.after.co2_kg*1000:null,base:available?data.before.co2_kg*1000:null,temporal:true}
+];
+function el(tag,attrs,parent){const e=document.createElementNS(ns,tag);for(const [k,v] of Object.entries(attrs))e.setAttribute(k,v);parent.appendChild(e);return e;}
+function point(r,angle){const a=(angle-90)*Math.PI/180;return [240+r*Math.cos(a),220+r*Math.sin(a)];}
+function sector(r,a,b){const p=point(r,a),q=point(r,b);return `M240 220L${p.join(' ')}A${r} ${r} 0 0 1 ${q.join(' ')}Z`;}
+const shapes=[],outlines=[],valueLabels=[],rows=[];
+axes.forEach((axis,i)=>{const a=i*72-34,b=i*72+34;
+ el('path',{d:sector(174,a,b),fill:'#dfe7e7',stroke:'#f8fafa','stroke-width':1},$('sectors'));
+ shapes.push(el('path',{fill:'url(#pressure)',d:sector(1,a,b)},$('sectors')));
+ outlines.push(el('path',{fill:'none',stroke:'#fff9dd','stroke-width':2,'stroke-dasharray':'4 3',d:sector(1,a,b)},$('references')));
+ const p=point(215,i*72);el('text',{x:p[0],y:p[1]-5,'text-anchor':'middle',fill:'#e2edf1','font-size':14},$('labels')).textContent=axis.label;
+ valueLabels.push(el('text',{x:p[0],y:p[1]+13,'text-anchor':'middle',fill:'#a8cbd0','font-size':12,direction:'ltr'},$('labels')));
+ const tr=document.createElement('tr');for(let j=0;j<3;j++)tr.appendChild(document.createElement('td'));tr.children[0].textContent=axis.label;tr.children[2].textContent=`${axis.ref} ${axis.unit}`;$('tableBody').appendChild(tr);rows.push(tr);
+});
+for(const [r,color] of [[78,'#3e885d'],[126,'#c58c42'],[174,'#a86283']])el('circle',{cx:240,cy:220,r,fill:'none',stroke:color,'stroke-width':1,opacity:.85},$('rings'));
+function draw(){let max=0,clipped=false;const fraction=t/60;
+ axes.forEach((axis,i)=>{const v=finite(axis.full)?axis.full*(axis.temporal?fraction:1):null,ratio=finite(v)?v/axis.ref:0;max=Math.max(max,ratio);if(ratio>174/78)clipped=true;
+ shapes[i].setAttribute('d',sector(Math.max(.01,Math.min(174,ratio*78)),i*72-34,i*72+34));shapes[i].style.display=finite(v)?'':'none';
+ const br=finite(axis.base)?axis.base*fraction/axis.ref*78:null;outlines[i].style.display=finite(br)?'':'none';if(finite(br))outlines[i].setAttribute('d',sector(Math.max(.01,Math.min(174,br)),i*72-34,i*72+34));
+ const value=finite(v)?`${fmt(v,i===3?3:1)} ${axis.unit}`:(i===1?'غير منطبق':'غير متاح');valueLabels[i].textContent=value;rows[i].children[1].textContent=value;
+ });
+ const critical=['BRIDGE_CRITICAL','CRITICAL'].includes(data.level),warning=data.level==='WARNING';
+ $('marker').style.left=`${critical?86:warning?62:Math.min(100,max/(174/78)*100)}%`;
+ $('statusText').textContent=critical?'خطر حرج · السلامة أولًا':warning?'تحذير · السلامة أولًا':`أعلى نسبة مرجعية: ${fmt(max,2)}×`;
+ $('time').value=t;$('time').setAttribute('aria-valuetext',`${fmt(t/60*100,0)}%`);$('timeValue').textContent=available?`${fmt(t/60*100,0)}%`:'—';
+ $('co2').textContent=available?fmt(data.after.co2_kg*1000*fraction):'—';$('fuel').textContent=available?fmt(data.after.fuel_l*fraction,3):'—';
+ $('baseline').textContent=available?`${fmt(data.before.co2_kg*1000*fraction)} g`:'غير متاح';
+ if(available){const diff=data.after.co2_kg-data.before.co2_kg;const pct=data.before.co2_kg>0?100*diff/data.before.co2_kg:null;
+ $('deltaLabel').textContent=diff>0?'زيادة الانبعاثات المفترضة':diff<0?'خفض الانبعاثات المفترض':'لا فرق في الافتراضين';
+ $('delta').textContent=`${diff>0?'+':''}${fmt(diff*1000*fraction)} g`+(pct===null?'':` (${pct>0?'+':''}${fmt(pct)}%)`);
+ $('delta').className=diff>0?'increase':diff<0?'decrease':'neutral';$('waitValue').textContent=`${fmt(data.before.wait_s*fraction,0)} → ${fmt(data.after.wait_s*fraction,0)} s`;$('vehicles').textContent=data.after.vehicles;
+ }else{$('delta').textContent='غير متاح';$('waitValue').textContent='غير متاح';$('vehicles').textContent='غير متاح';}
+ $('overflow').textContent=clipped?'بعض القطاعات بلغت حد الرسم؛ القيم الرقمية تبين التجاوز كاملًا.':'';
+}
+function stop(){playing=false;last=null;if(raf!==null)cancelAnimationFrame(raf);raf=null;$('play').textContent='▶';$('play').setAttribute('aria-label','تشغيل الحركة');}
+function tick(now){if(!playing)return;if(last!==null)t=Math.min(60,t+(now-last)/1000*5);last=now;draw();if(t>=60){stop();return;}raf=requestAnimationFrame(tick);}
+$('play').onclick=()=>{if(playing){stop();return;}if(t>=60)t=0;playing=true;last=null;$('play').textContent='Ⅱ';$('play').setAttribute('aria-label','إيقاف الحركة');raf=requestAnimationFrame(tick);};
+$('time').oninput=e=>{stop();t=Number(e.target.value);draw();};$('reset').onclick=()=>{stop();t=0;draw();};
+function view(table){$('radial').style.display=table?'none':'block';$('tableView').hidden=!table;$('chartTab').setAttribute('aria-pressed',String(!table));$('tableTab').setAttribute('aria-pressed',String(table));}
+$('chartTab').onclick=()=>view(false);$('tableTab').onclick=()=>view(true);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+if(reduced&&available)t=60;draw();
+</script></body></html>
