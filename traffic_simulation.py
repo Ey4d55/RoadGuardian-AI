@@ -56,7 +56,7 @@ def _congestion_data():
             for vehicle in vehicles:
                 if vehicle["velocity"] == 0:
                     vehicle["waiting_s"] = round(vehicle["waiting_s"] + .1, 1)
-        vehicle_seconds = sum(v["waiting_s"] for v in vehicles)
+        vehicle_seconds = round(sum(v["waiting_s"] for v in vehicles), 1)
         eco = impact(len(vehicles), vehicle_seconds / len(vehicles))
         phase = ("توقف الطابور في الاتجاهين · عبور المشاة المبرمج" if pose["crossing_confirmed"] else
                  "حماية المشاة · المركبات تتوقف تباعًا" if command == "R" and not stopped else

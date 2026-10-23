@@ -39,7 +39,7 @@
     "test_safety_workflow.py": "0670ddadbd8bcc4d5b06f26fd4678275d597acbb963e6b1946b95633caaefde8",
     "test_tabletop_demo.py": "f3aaa13034bb296a5e44cf4b26442efe95c9cc4bd96ca76cd4eafe773f6600f9",
     "test_traffic_simulation.py": "658939a285bcb8c52f80e5871a6189425a1385c3e815dd412637fe9307b59b15",
-    "traffic_simulation.py": "31b40fc21343e187f47c9afa286297e2621a53db69e9dc9b3df411ba90191815",
+    "traffic_simulation.py": "a0bdf1d7c811c997725922687652b1ad8527024f1ecf85cbe316eddc4c38373d",
     "vision_serial_bridge.py": "6ac9e36bbd06a422d75ace6be321042caf3f4ac1b58cf553fb20fad540f74869"
   }
 }
