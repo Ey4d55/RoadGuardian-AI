@@ -18,7 +18,7 @@
     "engine.py": "39bd85301d26e65b6f9470a18f85d99499892b4278e0029ae259c4cd6332831d",
     "esp32_controller.ino": "cb97963daadeae5986f81e08e866397f6d7a20eddbb8f5a28580d8bfd4e16b98",
     "hardware_check.py": "953b47804a337a37508e7ba1919f556ed6cf3bf2bd80c4883ef4d31eb761862f",
-    "package_release.py": "6c33c961f28c3082ebc5acc8af8a2e47624a68d8d4c761043ac8895843ca5a8d",
+    "package_release.py": "8d76c2e18d7ce8169170f39c125deb9774e77f2d7bae05b2c3c858346446d5aa",
     "requirements-dashboard.txt": "ed3e8712523537bae89f0ed6c8f5bb2ac139eb642aefd53d83e981fea443bc2d",
     "requirements.txt": "e05d18af8dbeaf547613ebdd6fb02384312d0daffbd40658af4aff7db7496c47",
     "review_project.py": "6a271cdc3be63b9e3c41802c165792461593f9ce10fb391cdf7fafb6adb10c46",

@@ -24,11 +24,12 @@ def main():
                      + (ROOT / name).read_text(encoding='utf-8').rstrip() + '\n```\n')
     (ROOT / 'COMPLETE_CODE.md').write_text(''.join(parts), encoding='utf-8')
     files = [name for name, _ in SOURCES] + [
-        'events.csv', 'README.md', 'PHYSICAL_DEMO.md', 'DESIGN_NOTES.md',
+        'events.csv', 'README.md', 'CONTRIBUTING.md', 'PHYSICAL_DEMO.md', 'docs/design.md',
         'COMPLETE_CODE.md', 'test_engine.py', 'test_dashboard.py', 'test_ecotwin.py',
         'test_hardware_check.py', 'test_audit.py', 'test_safety_workflow.py', 'PEDESTRIAN_FIRST.md',
-        'ACCEPTANCE_REVIEW.md', 'test_tabletop_demo.py',
-        'test_release.py', 'test_pages.py', 'test_traffic_simulation.py', 'GITHUB_READY.md', 'THIRD_PARTY_NOTICES.md',
+        'docs/validation.md', 'docs/hardware.md', 'docs/roadguardian-qr.svg',
+        'docs/images/roadguardian-qr.png', 'docs/images/roadguardian-qr-code.png', 'test_tabletop_demo.py',
+        'test_release.py', 'test_pages.py', 'test_traffic_simulation.py', 'THIRD_PARTY_NOTICES.md',
         '.gitignore', '.github/workflows/ci.yml',
         'assets/IBMPlexSansArabic-Regular.woff2', 'assets/IBMPlexSansArabic-SemiBold.woff2',
         'assets/FONT-LICENSE.txt']
